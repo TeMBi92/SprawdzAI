@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Mobile PL SprwadzAI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-content">
+                <img src="assets/logo.png" alt="SprawdzAI" class="welcome-logo">
+                <h1>Witaj!</h1>
+                <p class="intro-text">Jestem <strong>SprawdzAI</strong>, chatbot wspierany przez sztuczną inteligencję.</p>
+                <p>Pomogę Ci szybko i precyzyjnie znaleźć odpowiedzi na pytania dotyczące ofert pracowniczych dostępnych w naszej firmie. Moja wiedza opiera się na aktualnych dokumentach, w tym regulaminach i cennikach.</p>
+                
+                <div class="welcome-info">
+                    <p><strong>Zanim rozpoczniesz rozmowę, proszę pamiętaj o:</strong></p>
+                    <ul>
+                        <li>zapoznaniu się z <span id="regulationsSpan">regulaminem</span> korzystania z chatbota</li>
+                        <li>udzielaniu feedbacku do moich odpowiedzi - Twoja ocena jest niezwykle cenna i pozwala mi się doskonalić</li>
+                    </ul>
+                </div>
+                
+                <button class="btn btn-start" id="startChatBtn">Zaczynamy</button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="header" id="chatHeader">
+            <h1>Chat Asystent</h1>
+            <img src="assets/tmobile-logo.svg" alt="T-Mobile" class="logo">
+            <button class="regulations-btn" id="regulationsBtn">Regulamin</button>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-window" id="chatWindow">
+                <div class="welcome-message" id="welcomeMessage">
+                    <img src="assets/logo.png" alt="SprawdzAI" class="logo2">
+                    <p>Witaj! Jestem Twoim asystentem T-Mobile. Jak mogę Ci pomóc?</p>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Wpisz swoje pytanie..." 
+                        maxlength="300"
+                        rows="1"
+                    ></textarea>
+                    <span class="char-counter" id="charCounter">0/300</span>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-clear" id="clearBtn" title="Wyczyść konwersację">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                            <line x1="10" y1="11" x2="10" y2="17"/>
+                            <line x1="14" y1="11" x2="14" y2="17"/>
+                        </svg>
+                        Wyczyść
+                    </button>
+                    <button class="btn btn-send" id="sendBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                        Wyślij
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Regulations Modal -->
+    <div class="modal" id="regulationsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Regulamin Chatu</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>1. Postanowienia ogólne</h3>
+                <p>Chat asystent T-Mobile PL jest dostępny dla wszystkich pracowników T-Mobile Polska.</p>
+                
+                <h3>2. Zasady korzystania</h3>
+                <ul>
+                    <li>Chat służy do uzyskiwania informacji dotyczących T-Mobile</li>
+                    <li>Maksymalna długość pytania wynosi 300 znaków</li>
+                    <li>Można używać polskich znaków diakrytycznych oraz znaków specjalnych</li>
+                    <li>Konwersacje są zapisywane na czas trwania sesji</li>
+                </ul>
+                
+                <h3>3. Prywatność</h3>
+                <p>Wszystkie rozmowy są przetwarzane zgodnie z polityką prywatności T-Mobile i RODO.</p>
+                
+                <h3>4. Feedback</h3>
+                <p>Użytkownicy mogą oceniać odpowiedzi chatu za pomocą systemu ocen (kciuk w górę/dół), co pomaga nam w ulepszaniu usługi.</p>
+                
+                <h3>5. Kontakt</h3>
+                <p>W przypadku problemów technicznych prosimy o kontakt z działem IT.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeModalBtn">Zamknij</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
