@@ -19,6 +19,8 @@ const startChatBtn = document.getElementById('startChatBtn');
 const chatHeader = document.getElementById('chatHeader');
 const chatContainer = document.getElementById('chatContainer');
 
+const sessionId = 'd1e66b95-c6fd-488b-b5ac-d52bbef25c78';
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     // Hide chat elements initially
@@ -343,42 +345,56 @@ function scrollToBottom() {
     chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-// Simulate API call (replace with actual API integration)
+// Call backend API
 async function getChatResponse(userMessage) {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
-    
-    // Mock responses
-    const responses = [
-        {
-            text: 'Dziękuję za pytanie! Na podstawie dostępnych informacji, mogę powiedzieć, że T-Mobile oferuje szeroki wybór planów taryfowych dostosowanych do różnych potrzeb. Czy chciałbyś poznać szczegóły konkretnego planu?',
-            source: {
-                title: 'Oferta T-Mobile - Plany taryfowe',
-                url: 'https://www.t-mobile.pl/oferta'
-            }
-        },
-        {
-            text: 'Rozumiem Twoje zapytanie. W przypadku pytań dotyczących konta lub rozliczenia, najlepiej skontaktować się z działem obsługi klienta pod numerem 602 900 000.',
-            source: {
-                title: 'Kontakt - T-Mobile',
-                url: 'https://www.t-mobile.pl/kontakt'
-            }
-        },
-        {
-            text: 'Przepraszam, nie znalazłem odpowiedzi na Twoje pytanie w dostępnej bazie wiedzy. Czy mógłbyś przeformułować pytanie lub zadać je w inny sposób?',
-            source: null
-        },
-        {
-            text: 'Świetne pytanie! T-Mobile Polska oferuje nowoczesne usługi 5G w wielu miastach. Pokrycie sieci systematycznie się rozszerza. Sprawdź dostępność w Twojej lokalizacji na naszej mapie zasięgu.',
-            source: {
-                title: 'Mapa zasięgu 5G - T-Mobile',
-                url: 'https://www.t-mobile.pl/zasiegi'
-            }
+    try {
+        const response = await fetch('https://sprawdzai-1089571743905.europe-west4.run.app/run_sse', {
+            method: 'POST',
+            mode: 'cors', // Enable CORS
+            credentials: 'omit', // Don't send credentials
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                "appName": "sprawdzai",
+                "userId": "user",
+                "sessionId": sessionId,
+                "newMessage": {
+                    "role": "user",
+                    "parts": [
+                    {
+                        "text": userMessage
+                    }
+                    ]
+                },
+                "streaming": false,
+                "stateDelta": null
+                })
+            });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    ];
-    
-    // Return random response
-    return responses[Math.floor(Math.random() * responses.length)];
+        console.log('response:', response)
+
+        const data = await response.json();
+        
+        // Return response in expected format
+        return {
+            text: data.text || 'Przepraszam, wystąpił problem z odpowiedzią.',
+            source: data.source || null
+        };
+        
+    } catch (error) {
+        console.error('Error calling API:', error);
+        
+        // Return error message to user
+        return {
+            text: 'Przepraszam, wystąpił błąd podczas łączenia z serwerem. Spróbuj ponownie za chwilę.',
+            source: null
+        };
+    }
 }
 
 // Handle page visibility - start new conversation when page is reopened

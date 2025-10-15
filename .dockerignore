@@ -1,0 +1,37 @@
+# Git files
+.git
+.gitignore
+
+# Documentation
+README.md
+DEPLOYMENT.md
+QUICK-DEPLOY.md
+
+# Deployment scripts
+deploy-*.ps1
+deploy-*.bat
+deploy-*.sh
+
+# Firebase
+.firebase
+.firebaserc
+firebase.json
+.firebase/
+
+# Cloud files
+app.yaml
+cors.json
+
+# Node modules (if any)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
